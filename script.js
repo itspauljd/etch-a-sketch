@@ -1,6 +1,6 @@
 const grid = document.getElementById('grid');
 const resetButton = document.getElementById('reset');
-
+const sizeButton = document.getElementById('size')
 
 // This function makes the grid and adds on hover events
 function makeGrid(size) {
@@ -26,13 +26,32 @@ function makeGrid(size) {
         grid.appendChild(cell);
     }
 }
+const collection = document.getElementsByClassName("gridCell");
 
+// this function adds functionality to the reset button 
 resetButton.addEventListener('click', reset);
 function reset() {
-    const collection = document.getElementsByClassName("gridCell");
-    for (let i = 0; i < collection.length; i++) {
-        collection[i].style.backgroundColor = 'rgb(194, 179, 179)';
+    deleteGrid();
+    makeGrid(8)
+}
+
+sizeButton.addEventListener('click', size);
+function size() {
+    let prompt = window.prompt('Please enter a value between 1-100')
+    if (prompt > 100 || prompt < 1) {
+        alert('Please enter a value between 1-100');
+        size()
+    } else {
     }
+    deleteGrid()
+    makeGrid(prompt);
+}
+
+function deleteGrid() {
+    const deletions = document.querySelectorAll('.gridCell');
+    deletions.forEach(deletion => {
+        deletion.remove();
+    })
 }
 
 makeGrid(8)
